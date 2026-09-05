@@ -1,0 +1,5 @@
+{{- /* "Set 02" / "Sep 02" — localized, capitalized, without the abbreviation dot. */ -}}
+{{- $fmt := site.Params.dateFormatShort | default "Jan 02" -}}
+{{- $out := time.Format $fmt . -}}
+{{- $out = replace $out "." "" -}}
+{{- return (strings.FirstUpper $out) -}}

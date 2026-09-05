@@ -1,0 +1,27 @@
+{{ define "main" }}
+  <div class="hx:mx-auto hx:flex hextra-max-page-width">
+    {{ partial "sidebar.html" (dict "context" .) }}
+    {{ partial "toc.html" (dict "Params" (dict "toc" false)) }}
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8">
+      <main id="content" class="content aor-index aor-tag-page hx:w-full hx:min-w-0 hextra-max-content-width hx:px-6 hx:pt-6 hx:md:px-12">
+        <h1 class="aor-page-title">#{{ .Data.Term }}</h1>
+        <p class="aor-page-subtitle">{{ i18n "postCount" (dict "Count" (len .Pages)) }}</p>
+        {{ with .Content }}<div class="aor-index__intro">{{ . }}</div>{{ end }}
+        <div class="aor-index-list" data-index-view="list">
+          <section class="aor-index-month">
+            <ul>
+              {{- range .Pages.ByDate.Reverse }}
+                <li>
+                  <code>{{ .Date.Format "2006" }} {{ partial "aor/short-date.html" .Date }}</code> &mdash;
+                  <a href="{{ .RelPermalink }}" title="{{ partial "utils/page-description" . }}">{{ .Title }}</a>
+                  <br />
+                  {{ partial "aor/post-tags.html" (dict "page" . "variant" "index-list") }}
+                </li>
+              {{- end }}
+            </ul>
+          </section>
+        </div>
+      </main>
+    </article>
+  </div>
+{{ end }}

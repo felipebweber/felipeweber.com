@@ -1,0 +1,26 @@
+{{- /*
+  Groups every published blog post of the current language into month buckets,
+  newest first. Returns a slice of dicts:
+
+    key    "2026-09"          machine-readable, stable across languages
+    id     "aor-grid-2026-09" DOM id used by the grid view and the TOC
+    label  "2026 - Setembro"  localized display label
+    count  1                  number of posts in the bucket
+    pages  <page slice>       posts, newest first
+*/ -}}
+{{- $section := site.Params.archives.section | default "blog" -}}
+{{- $pages := where site.RegularPages "Section" $section -}}
+{{- $pages = where $pages "Params.unlisted" "!=" true -}}
+{{- $groups := slice -}}
+{{- range $pages.GroupByDate "2006-01" "desc" -}}
+  {{- $bucket := . -}}
+  {{- $first := index $bucket.Pages 0 -}}
+  {{- $groups = $groups | append (dict
+      "key" $bucket.Key
+      "id" (printf "aor-grid-%s" $bucket.Key)
+      "label" (partial "aor/month-label.html" $first.Date)
+      "count" (len $bucket.Pages)
+      "pages" $bucket.Pages
+  ) -}}
+{{- end -}}
+{{- return $groups -}}

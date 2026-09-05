@@ -1,0 +1,52 @@
+{{ define "main" }}
+  {{- $longFmt := site.Params.dateFormatLong | default ":date_long" -}}
+  {{- $commentsOn := and (ne .Params.comments false) (ne site.Params.comments.giscus.repoId "") -}}
+  {{- $next := or .NextInSection .PrevInSection -}}
+
+  <div class="hx:mx-auto hx:flex hextra-max-page-width">
+    {{ partial "sidebar.html" (dict "context" .) }}
+    {{ partial "toc.html" . }}
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8">
+      <main id="content" class="aor-post hx:w-full hx:min-w-0 hextra-max-content-width hx:px-6 hx:pt-6 hx:md:px-12">
+
+        <header class="aor-post__header">
+          <h1 class="aor-post__title">{{ .Title }}</h1>
+          <div class="aor-post__meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ time.Format $longFmt .Date }}</time>
+            {{- if $commentsOn }}
+              <span class="aor-post__meta-sep">·</span>
+              <a class="aor-post__comments-jump" href="#comments">{{ T "joinDiscussion" }}</a>
+            {{- end }}
+          </div>
+        </header>
+
+        <div class="content aor-post__body">
+          {{ .Content }}
+        </div>
+
+        <footer class="aor-post__footer">
+          {{- with .Params.tags }}
+            <div class="aor-post__tags">
+              {{ partial "aor/post-tags.html" (dict "page" $ "variant" "article") }}
+            </div>
+          {{- end }}
+
+          {{- with $next }}
+            <a class="aor-next-post" href="{{ .RelPermalink }}">
+              <span class="aor-next-post__label">{{ T "nextPost" }}</span>
+              <span class="aor-next-post__title">{{ .Title }}</span>
+              <span class="aor-next-post__description">{{ partial "utils/page-description" . }}</span>
+            </a>
+          {{- end }}
+
+          {{- if $commentsOn }}
+            <section id="comments" class="aor-comments">
+              <h2>{{ T "comments" }}</h2>
+              {{ partial "components/giscus.html" . }}
+            </section>
+          {{- end }}
+        </footer>
+      </main>
+    </article>
+  </div>
+{{ end }}

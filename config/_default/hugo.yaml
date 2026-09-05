@@ -1,0 +1,60 @@
+baseURL: "https://felipeweber.com/"
+title: "felipeweber.com"
+
+defaultContentLanguage: pt
+defaultContentLanguageInSubdir: false
+
+enableRobotsTXT: true
+enableEmoji: true
+titleCaseStyle: none
+enableInlineShortcodes: true
+
+# Blog posts live under content/<lang>/blog/ but are published at the
+# akitaonrails-style dated route: /2026/09/05/my-slug/
+permalinks:
+  page:
+    blog: "/:year/:month/:day/:slug/"
+
+taxonomies:
+  tag: tags
+
+pagination:
+  pagerSize: 500
+
+outputs:
+  home: [HTML, RSS]
+  section: [HTML]
+  taxonomy: [HTML]
+  term: [HTML]
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+    parser:
+      attribute:
+        block: true
+  highlight:
+    noClasses: false
+    lineNos: false
+    codeFences: true
+    guessSyntax: true
+    tabWidth: 2
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+
+services:
+  rss:
+    limit: 30
+
+privacy:
+  disqus:
+    disable: true
+
+build:
+  cachebusters:
+    - source: "assets/.*\\.(js|ts|jsx|tsx)"
+      target: "js"
+    - source: "assets/.*\\.(css|scss|sass)"
+      target: "css"

@@ -1,0 +1,15 @@
+{{- $rss := "" -}}
+{{- with .OutputFormats.Get "rss" }}{{ $rss = .RelPermalink }}{{ end -}}
+<footer class="hx:bg-gray-100 hx:pb-[env(safe-area-inset-bottom)] hx:dark:bg-neutral-900 hx:print:bg-transparent aor-footer-wrap">
+  <div class="hextra-max-footer-width hx:mx-auto hx:flex hx:justify-center hx:py-6 hx:px-6 hx:md:px-12 hx:text-gray-600 hx:dark:text-gray-400 hx:w-full">
+    <div class="aor-footer hx:w-full">
+      <span>© {{ now.Format "2006" }} {{ site.Params.author.name | default site.Title }}</span>
+      <span class="aor-footer__links">
+        {{- with site.Params.social.github }}<a href="{{ . }}" target="_blank" rel="noreferrer">GitHub</a>{{ end -}}
+        {{- with site.Params.social.linkedin }}<a href="{{ . }}" target="_blank" rel="noreferrer">LinkedIn</a>{{ end -}}
+        {{- with site.Params.social.x }}<a href="{{ . }}" target="_blank" rel="noreferrer">X</a>{{ end -}}
+        {{- with $rss }}<a href="{{ . }}">RSS</a>{{ end -}}
+      </span>
+    </div>
+  </div>
+</footer>

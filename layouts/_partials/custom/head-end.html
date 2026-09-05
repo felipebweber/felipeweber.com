@@ -1,0 +1,31 @@
+{{- /* Preload the two font files used above the fold; the rest load on demand. */ -}}
+<link rel="preload" href="{{ "fonts/sourcesans3-400-normal-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="{{ "fonts/sourceserif4-400-normal-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin />
+
+<meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1a1714" media="(prefers-color-scheme: dark)" />
+
+{{- /* Feed for the current language, plus one alternate per language. */ -}}
+{{- with site.Home.OutputFormats.Get "rss" }}
+  <link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}" />
+{{- end }}
+{{- range site.Home.AllTranslations }}
+  {{- $lang := .Language.Lang -}}
+  {{- with .OutputFormats.Get "rss" }}
+    <link rel="alternate" type="application/rss+xml" hreflang="{{ $lang }}" href="{{ .Permalink }}" />
+  {{- end }}
+{{- end }}
+
+{{- /* hreflang pairs so search engines connect the PT and EN versions. */ -}}
+{{- if .IsTranslated }}
+  {{- range .AllTranslations }}
+    <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
+  {{- end }}
+{{- end }}
+
+{{- /* Cloudflare Web Analytics — cookieless, no cross-site tracking. */ -}}
+{{- if hugo.IsProduction }}
+  {{- with site.Params.analytics.cloudflareToken }}
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ . }}"}'></script>
+  {{- end }}
+{{- end }}

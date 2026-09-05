@@ -1,0 +1,36 @@
+main:
+  - identifier: about
+    name: "Sobre"
+    pageRef: /about
+    weight: 1
+  - identifier: archives
+    name: "Arquivo"
+    pageRef: /archives
+    weight: 2
+  - identifier: github
+    name: "GitHub"
+    url: "https://github.com/felipebweber"
+    weight: 3
+    params:
+      icon: github
+  - identifier: search
+    name: "Busca"
+    weight: 4
+    params:
+      type: search
+  - identifier: rss
+    name: "RSS"
+    url: "/index.xml"
+    weight: 5
+    params:
+      icon: rss
+  - identifier: lang
+    name: "Idioma"
+    weight: 6
+    params:
+      type: language-switch
+  - identifier: theme
+    name: "Tema"
+    weight: 7
+    params:
+      type: theme-toggle

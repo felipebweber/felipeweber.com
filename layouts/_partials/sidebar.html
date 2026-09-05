@@ -1,0 +1,97 @@
+{{- /*
+  Left rail: navigation, presence, featured projects and the tag cloud.
+  Replaces Hextra's docs-tree sidebar; keeps the class names menu.js relies on
+  so the mobile hamburger drawer keeps working.
+*/ -}}
+{{- $context := .context | default . -}}
+{{- $pageURL := $context.RelPermalink -}}
+{{- $tagsPage := $context.Site.GetPage "/tags" -}}
+
+<aside class="hextra-sidebar-container aor-sidebar hx:flex hx:flex-col hx:print:hidden hx:md:top-16 hx:md:shrink-0 hx:md:w-64 hx:md:self-start hx:max-md:[transform:translate3d(0,-100%,0)] hx:md:sticky">
+  {{- if (site.Params.search.enable | default true) }}
+    <div class="hx:px-4 hx:pt-4 hx:md:hidden">
+      {{ partial "search.html" (dict "location" "sidebar") }}
+    </div>
+  {{- end }}
+
+  <div class="hextra-scrollbar hx:overflow-y-auto hx:overflow-x-hidden hx:p-4 hx:grow hx:md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+
+    {{- /* Navigation */ -}}
+    <p class="aor-sidebar__heading">{{ T "sidebarNavigation" }}</p>
+    <ul class="aor-sidebar__list">
+      {{- $home := $context.Site.Home -}}
+      <li>{{ template "aor-sidebar-link" (dict "title" (T "home") "link" $home.RelPermalink "active" (eq $pageURL $home.RelPermalink)) }}</li>
+      {{- range site.Menus.main -}}
+        {{- $type := .Params.type | default "" -}}
+        {{- if or (eq $type "search") (eq $type "theme-toggle") (eq $type "language-switch") -}}{{ continue }}{{- end -}}
+        {{- $link := .URL -}}
+        {{- with .PageRef -}}
+          {{- if hasPrefix . "/" -}}{{- $link = relLangURL (strings.TrimPrefix "/" .) -}}{{- end -}}
+        {{- end -}}
+        <li>{{ template "aor-sidebar-link" (dict "title" (or (T .Identifier) .Name) "link" $link "active" (eq (strings.TrimSuffix "/" $pageURL) (strings.TrimSuffix "/" $link))) }}</li>
+      {{- end }}
+      {{- with $tagsPage }}
+        <li>{{ template "aor-sidebar-link" (dict "title" (T "tagsTitle") "link" .RelPermalink "active" (hasPrefix $pageURL .RelPermalink)) }}</li>
+      {{- end }}
+    </ul>
+
+    {{- /* Presence */ -}}
+    {{- with site.Params.social }}
+      <p class="aor-sidebar__heading">{{ T "sidebarPresence" }}</p>
+      <ul class="aor-sidebar__list">
+        {{- range $key, $url := . -}}
+          {{- if $url -}}
+            {{- $icon := $key -}}
+            {{- if eq $key "x" }}{{ $icon = "x-twitter" }}{{ end -}}
+            <li>{{ template "aor-sidebar-link" (dict "title" (humanize $key) "link" $url "icon" $icon) }}</li>
+          {{- end -}}
+        {{- end }}
+      </ul>
+    {{- end }}
+
+    {{- /* Projects */ -}}
+    {{- with site.Params.projects }}
+      <p class="aor-sidebar__heading">{{ T "sidebarProjects" }}</p>
+      <ul class="aor-sidebar__list">
+        {{- range . }}
+          <li>{{ template "aor-sidebar-link" (dict "title" .name "link" .url "icon" "code") }}</li>
+        {{- end }}
+      </ul>
+    {{- end }}
+
+    {{- /* Tag cloud */ -}}
+    {{- with site.Taxonomies.tags }}
+      <p class="aor-sidebar__heading">{{ T "sidebarTopics" }}</p>
+      <div class="aor-tag-cloud">
+        {{- range first 24 .ByCount }}
+          <a class="aor-tag-cloud__item" href="{{ .Page.RelPermalink }}">
+            <span>#{{ .Page.Data.Term }}</span><span class="aor-tag-cloud__count">{{ .Count }}</span>
+          </a>
+        {{- end }}
+      </div>
+      {{- with $tagsPage }}
+        <a class="aor-sidebar__more" href="{{ .RelPermalink }}">{{ T "allTopics" }}</a>
+      {{- end }}
+    {{- end }}
+  </div>
+
+  {{- /* Language + theme switches, mobile drawer only (the navbar carries them on desktop) */ -}}
+  <div class="hx:md:hidden hx:sticky hx:bottom-0 hx:max-h-(--menu-height) hx:bg-white hx:dark:bg-dark hx:mx-4 hx:py-4 hx:flex hx:items-center hx:gap-2 hx:border-t hx:border-gray-200 hx:dark:border-neutral-800" data-toggle-animation="show">
+    {{- if hugo.IsMultilingual -}}
+      {{- partial "language-switch" (dict "context" $context "grow" true) -}}
+    {{- end -}}
+    {{- if (site.Params.theme.displayToggle | default true) -}}
+      {{ partial "theme-toggle" (dict "hideLabel" true "location" "bottom-right") }}
+    {{- end -}}
+  </div>
+</aside>
+
+{{- define "aor-sidebar-link" -}}
+  {{- $external := strings.HasPrefix .link "http" -}}
+  <a class="aor-sidebar__link{{ if .active }} aor-sidebar__link--active{{ end }}" href="{{ .link }}"
+     {{ if $external }}target="_blank" rel="noreferrer"{{ end }}>
+    {{- with .icon }}<span class="aor-sidebar__icon">{{ partial "utils/icon.html" (dict "name" . "attributes" `height=14 width=14`) }}</span>{{ end -}}
+    <span>{{ .title }}</span>
+    {{- if $external }}<span class="aor-sidebar__ext">{{ partial "utils/icon.html" (dict "name" "arrow-up-right" "attributes" `height=10 width=10`) }}</span>{{ end -}}
+  </a>
+{{- end -}}

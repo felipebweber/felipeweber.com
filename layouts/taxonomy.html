@@ -1,0 +1,19 @@
+{{ define "main" }}
+  <div class="hx:mx-auto hx:flex hextra-max-page-width">
+    {{ partial "sidebar.html" (dict "context" .) }}
+    {{ partial "toc.html" (dict "Params" (dict "toc" false)) }}
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8">
+      <main id="content" class="content aor-tag-page hx:w-full hx:min-w-0 hextra-max-content-width hx:px-6 hx:pt-6 hx:md:px-12">
+        <h1 class="aor-page-title">{{ or .Title (T "tagsTitle") }}</h1>
+        {{ with .Content }}<div class="aor-index__intro">{{ . }}</div>{{ end }}
+        <div class="aor-tag-cloud aor-tag-cloud--page">
+          {{- range .Pages.ByTitle }}
+            <a class="aor-tag-cloud__item" href="{{ .RelPermalink }}">
+              <span>#{{ .Data.Term }}</span><span class="aor-tag-cloud__count">{{ len .Pages }}</span>
+            </a>
+          {{- end }}
+        </div>
+      </main>
+    </article>
+  </div>
+{{ end }}

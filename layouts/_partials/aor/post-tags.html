@@ -1,0 +1,13 @@
+{{- /* dict "page" <page> "variant" "card|index-list|featured-list|article" */ -}}
+{{- $page := .page -}}
+{{- with $page.Params.tags -}}
+  <span class="aor-post-tags aor-post-tags--{{ $.variant }}">
+    {{- range . -}}
+      {{- with $page.Site.GetPage (printf "/tags/%s" (urlize .)) -}}
+        <a class="aor-tag-link" href="{{ .RelPermalink }}">#{{ .Data.Term }}</a>
+      {{- else -}}
+        <span class="aor-tag-link">#{{ . }}</span>
+      {{- end -}}
+    {{- end -}}
+  </span>
+{{- end -}}

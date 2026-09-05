@@ -1,0 +1,20 @@
+{{- /* Segmented "PT | EN" toggle that preserves the translated route. */ -}}
+{{- $page := .context | default . -}}
+{{- $grow := .grow | default false -}}
+{{- $current := site.Language.Lang -}}
+
+{{- if hugo.IsMultilingual -}}
+  <div class="aor-lang-toggle{{ if $grow }} aor-lang-toggle--grow{{ end }}" role="group" aria-label="{{ (T "changeLanguage") | default "Change language" }}">
+    {{- range partial "utils/hugo-compat/sites.html" $page }}
+      {{- $language := .Language -}}
+      {{- $link := partial "utils/lang-link" (dict "lang" $language.Lang "context" $page) -}}
+      {{- $label := partial "utils/hugo-compat/language-label.html" $language -}}
+      {{- $active := eq $language.Lang $current -}}
+      <a class="lang-toggle-link{{ if $active }} lang-toggle-link--active{{ end }}"
+         href="{{ $link }}"
+         hreflang="{{ $language.Lang }}"
+         {{ if $active }}aria-current="true"{{ end }}
+         title="{{ $label }}">{{ $label }}</a>
+    {{- end }}
+  </div>
+{{- end -}}

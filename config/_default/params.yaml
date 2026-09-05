@@ -1,0 +1,102 @@
+# ---------------------------------------------------------------------------
+# Identity — edit these first.
+# ---------------------------------------------------------------------------
+author:
+  name: "Felipe Weber"
+  email: "weberecomp@gmail.com"
+
+social:
+  github: "https://github.com/felipebweber"
+  linkedin: "https://www.linkedin.com/in/felipebweber/"
+  x: "https://x.com/felipebweber"
+
+# Featured repositories rendered in the left sidebar under "Projetos".
+projects:
+  - name: "felipeweber.com"
+    url: "https://github.com/felipebweber/felipeweber.com"
+  - name: "dotfiles"
+    url: "https://github.com/felipebweber/dotfiles"
+
+# ---------------------------------------------------------------------------
+# Chrome
+# ---------------------------------------------------------------------------
+navbar:
+  displayTitle: true
+  displayLogo: false
+  width: normal
+
+theme:
+  default: system
+  displayToggle: true
+
+footer:
+  enable: true
+  displayCopyright: false
+  displayPoweredBy: false
+  width: normal
+
+search:
+  enable: true
+  type: flexsearch
+  flexsearch:
+    index: content
+    tokenize: forward
+    # Vendored locally so builds never depend on a CDN being reachable, and so
+    # visitors make zero third-party requests.
+    js: js/vendor/flexsearch.bundle.min.js
+
+toc:
+  enable: true
+  displayTags: true
+
+editURL:
+  enable: false
+
+blog:
+  list:
+    displayTags: true
+  article:
+    displayPagination: false
+
+archives:
+  section: blog
+
+# Number of posts shown in the collapsible "Destaques" box on the home page.
+featured:
+  limit: 5
+
+highlight:
+  copy:
+    enable: true
+    display: hover
+
+enableImageLazyLoading: true
+
+# Cookieless analytics. Paste the token from the Cloudflare dashboard
+# (Web Analytics → your site → JS snippet) to switch it on.
+analytics:
+  cloudflareToken: ""
+
+
+# ---------------------------------------------------------------------------
+# Comments — Giscus (GitHub Discussions)
+#
+# Fill repoId / categoryId from https://giscus.app after enabling Discussions
+# on the repo below. Until they are set, the comment box stays hidden.
+# ---------------------------------------------------------------------------
+# Off by default so ordinary pages (About, Archives, tag listings) never load
+# a comment widget; layouts/blog/single.html opts articles in once repoId is set.
+comments:
+  enable: false
+  type: giscus
+  giscus:
+    repo: "felipebweber/felipeweber.com"
+    repoId: ""
+    category: "Comments"
+    categoryId: ""
+    mapping: pathname
+    strict: 1
+    reactionsEnabled: 1
+    emitMetadata: 0
+    inputPosition: top
+    theme: preferred_color_scheme

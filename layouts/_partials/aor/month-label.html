@@ -1,0 +1,4 @@
+{{- /* "2026 - Setembro" / "2026 - September", localized by site language. */ -}}
+{{- $year := .Format "2006" -}}
+{{- $month := strings.FirstUpper (replace (time.Format "January" .) "." "") -}}
+{{- return (printf "%s - %s" $year $month) -}}
