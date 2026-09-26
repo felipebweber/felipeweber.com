@@ -27,3 +27,16 @@ onThisPage: "On this page"
 backToTop: "Back to top"
 searchPlaceholder: "Search..."
 changeLanguage: "Change language"
+notFoundTitle: "Page not found"
+notFoundText: "The address may have moved, or it never existed."
+notFoundHome: "← Back to home"
+
+# Menu labels — Hextra looks these up by menu identifier before falling back to
+# the menu name, so defining them silences the missing-translation warnings.
+about: "About"
+archives: "Archives"
+github: "GitHub"
+search: "Search"
+rss: "RSS"
+lang: "Language"
+theme: "Theme"

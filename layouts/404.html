@@ -1,0 +1,18 @@
+{{ define "main" }}
+  <div class="hx:mx-auto hx:flex hextra-max-page-width">
+    {{ partial "sidebar.html" (dict "context" .) }}
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8">
+      <main id="content" class="content aor-index aor-404 hx:w-full hx:min-w-0 hextra-max-content-width hx:px-6 hx:pt-6 hx:md:px-12">
+        <h1 class="aor-page-title">{{ T "notFoundTitle" }}</h1>
+        <p class="aor-page-subtitle">{{ T "notFoundText" }}</p>
+        <p>
+          <a href="{{ site.Home.RelPermalink }}">{{ T "notFoundHome" }}</a>
+          &middot;
+          {{- with site.GetPage "/archives" }}
+            <a href="{{ .RelPermalink }}">{{ T "olderPostsLink" }}</a>
+          {{- end }}
+        </p>
+      </main>
+    </article>
+  </div>
+{{ end }}
