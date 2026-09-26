@@ -79,24 +79,13 @@ analytics:
 
 
 # ---------------------------------------------------------------------------
-# Comments — Giscus (GitHub Discussions)
+# Comments — Disqus
 #
-# Fill repoId / categoryId from https://giscus.app after enabling Discussions
-# on the repo below. Until they are set, the comment box stays hidden.
+# Create a site at https://disqus.com/admin/create/ and paste its shortname
+# below. Until it is set, the comment section stays hidden. The embed is only
+# fetched when the reader scrolls near it or clicks "Join the Discussion", so
+# articles make no third-party requests otherwise.
 # ---------------------------------------------------------------------------
-# Off by default so ordinary pages (About, Archives, tag listings) never load
-# a comment widget; layouts/blog/single.html opts articles in once repoId is set.
 comments:
-  enable: false
-  type: giscus
-  giscus:
-    repo: "felipebweber/felipeweber.com"
-    repoId: ""
-    category: "Comments"
-    categoryId: ""
-    mapping: pathname
-    strict: 1
-    reactionsEnabled: 1
-    emitMetadata: 0
-    inputPosition: top
-    theme: preferred_color_scheme
+  disqus:
+    shortname: ""

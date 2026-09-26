@@ -99,19 +99,22 @@ automatically.
 
 ## Comments
 
-Giscus is wired up but inert until it is configured. Enable Discussions on the
-repo, run through <https://giscus.app>, and paste the two ids into
+Disqus, wired up but inert until it is configured. Create a site at
+<https://disqus.com/admin/create/> and paste its shortname into
 `config/_default/params.yaml`:
 
 ```yaml
 comments:
-  giscus:
-    repoId: "..."
-    categoryId: "..."
+  disqus:
+    shortname: "..."
 ```
 
 The comment section and the "💬 Participe da Discussão" link in the article
-header appear as soon as `repoId` is non-empty.
+header appear as soon as `shortname` is non-empty. The embed is lazy-loaded
+(`layouts/_partials/custom/disqus.html`): Disqus is only contacted when the
+reader scrolls near the comments or follows the "Join the Discussion" link.
+Each language version of a post has its own thread. Set `comments: false` in a
+post's front matter to turn comments off for it.
 
 ## Analytics
 

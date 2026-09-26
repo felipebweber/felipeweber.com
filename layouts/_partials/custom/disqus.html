@@ -1,0 +1,50 @@
+{{- /*
+  Disqus embed, lazy-loaded: embed.js (and Disqus' cookies) are only fetched
+  once the comment section nears the viewport or the reader jumps to #comments.
+  Each language version of a post gets its own thread.
+*/ -}}
+{{- $shortname := site.Params.comments.disqus.shortname -}}
+<div id="disqus_thread" data-shortname="{{ $shortname }}" data-url="{{ .Permalink }}" data-identifier="{{ .Language.Lang }}/{{ .File.ContentBaseName }}" data-title="{{ .Title }}" data-lang="{{ cond (eq .Language.Lang "pt") "pt_BR" "en" }}"></div>
+<noscript><a href="https://disqus.com/?ref_noscript" rel="nofollow">Disqus</a></noscript>
+<script>
+  (function () {
+    var el = document.getElementById("disqus_thread");
+    if (!el) return;
+    var d = el.dataset, loaded = false;
+
+    window.disqus_config = function () {
+      this.page.url = d.url;
+      this.page.identifier = d.identifier;
+      this.page.title = d.title;
+      this.language = d.lang;
+    };
+
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement("script");
+      s.src = "https://" + d.shortname + ".disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      s.async = true;
+      document.body.appendChild(s);
+    }
+
+    if (location.hash === "#comments" || location.hash.indexOf("#comment-") === 0) load();
+    window.addEventListener("hashchange", function () { if (location.hash === "#comments") load(); });
+
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { io.disconnect(); load(); }
+      }, { rootMargin: "400px 0px" });
+      io.observe(el);
+    } else {
+      load();
+    }
+
+    // Disqus samples the page colours once at load; re-render it when the
+    // reader flips the light/dark toggle so the text stays readable.
+    new MutationObserver(function () {
+      if (loaded && window.DISQUS) window.DISQUS.reset({ reload: true, config: window.disqus_config });
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+  })();
+</script>
