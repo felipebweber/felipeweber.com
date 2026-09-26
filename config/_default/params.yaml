@@ -81,7 +81,9 @@ analytics:
 # ---------------------------------------------------------------------------
 # Comments — Giscus (GitHub Discussions)
 #
-# Fill repoId / categoryId from https://giscus.app after enabling Discussions
+# Ids fetched from the GitHub API; threads go to the "Announcements" category
+# (only maintainers can open threads there, so readers only reply via Giscus).
+# To change them, run through https://giscus.app after enabling Discussions
 # on the repo below. Until they are set, the comment box stays hidden.
 # ---------------------------------------------------------------------------
 # Off by default so ordinary pages (About, Archives, tag listings) never load
@@ -91,9 +93,9 @@ comments:
   type: giscus
   giscus:
     repo: "felipebweber/felipeweber.com"
-    repoId: ""
-    category: "Comments"
-    categoryId: ""
+    repoId: "R_kgDOUtXfxA"
+    category: "Announcements"
+    categoryId: "DIC_kwDOUtXfxM4DGdrZ"
     mapping: pathname
     strict: 1
     reactionsEnabled: 1
