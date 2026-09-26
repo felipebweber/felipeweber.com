@@ -39,6 +39,7 @@ Front matter that matters:
 | `translationKey` | **same value in both languages** — this is what links PT↔EN |
 | `description` | shown in the grid cards, search results and `<meta name="description">` |
 | `tags` | lowercase, 2–3 per post |
+| `images` | optional list of share images (og:image); defaults to `static/images/og-<lang>.png` |
 | `featured` | `true` puts the post in the collapsible "Destaques" box on the home page |
 | `draft` | `true` hides it from builds; drop it to publish |
 
