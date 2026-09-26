@@ -1,28 +1,39 @@
 ---
 title: "About"
 translationKey: about
-description: "Who I am, what I work on, and where to find me."
+description: "Senior iOS developer with 10+ years of experience — who I am, what I work on, and where to find me."
 ---
 
-> This page is a skeleton: the bits in `[brackets]` are the only ones left to
-> fill in with real details.
-
-I'm **Felipe Weber**, a software engineer. I write here about what I learn
-while building systems — day-to-day software engineering, AI applied to real
-problems, and the tools that stay in my setup once the novelty wears off.
+I'm **Felipe Weber**, a software engineer with more than 10 years of
+experience, currently working as a **senior iOS developer**. I write here about
+what I learn while building apps — day-to-day software engineering, AI applied
+to real problems, and the tools that stay in my setup once the novelty wears
+off.
 
 ## Background
 
-I've been building software for [N] years. Today I work as a [role] at
-[company], where I look after [area of responsibility].
+Since 2021 I've been at **Sicredi**, a Brazilian cooperative bank, working on
+its mobile banking app. I built the Mobile Token experience, token reactivation
+through facial biometrics, and other personal-credit features. I also ran the
+iOS training program for trainee developers.
 
-Before that I was at [previous company], working on [technologies / domain].
+Before that, at **CWI Software**, I owned the whole payroll-loan experience on
+iOS — from creating the repository and the GitLab CI pipeline to modularization
+and unit tests — and refactored the credit-protection insurance flow into a
+module shared across the credit products.
+
+I started in mobile with native Android at the **Federal University of Rio
+Grande (FURG)**, and spent some time as a freelance iOS developer before moving
+into financial services.
 
 ## What I work on
 
-- **[Area 1]** — [one sentence about what you do here].
-- **[Area 2]** — [one sentence].
-- **[Area 3]** — [one sentence].
+- **iOS apps in fintech** — sensitive flows like authentication, tokens and
+  credit, where security and reliability are not optional.
+- **Architecture and quality** — modularization, automated tests and CI so
+  large apps stay easy to change.
+- **Applied AI** — on-device models and small products where AI solves a
+  concrete problem.
 
 ## Everyday tools
 
@@ -30,10 +41,12 @@ The stack I reach for when the choice is mine:
 
 | Layer | Choice |
 | --- | --- |
-| Language | [primary language] |
-| Editor | [editor] |
-| Infra | [cloud / orchestration] |
-| Database | [database] |
+| Language | Swift |
+| UI | SwiftUI and UIKit |
+| Editor | Xcode |
+| Testing | XCTest, Quick and Nimble |
+| CI | GitLab CI |
+| Side projects | TypeScript |
 
 ## Projects
 
