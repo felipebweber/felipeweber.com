@@ -40,7 +40,6 @@ O stack que uso quando a escolha é minha:
 ## Projetos
 
 - [felipeweber.com](https://github.com/felipebweber/felipeweber.com) — o código deste site.
-- [dotfiles](https://github.com/felipebweber/dotfiles) — configuração do meu ambiente.
 
 ## Contato
 

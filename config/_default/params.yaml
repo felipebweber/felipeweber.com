@@ -14,8 +14,6 @@ social:
 projects:
   - name: "felipeweber.com"
     url: "https://github.com/felipebweber/felipeweber.com"
-  - name: "dotfiles"
-    url: "https://github.com/felipebweber/dotfiles"
 
 # ---------------------------------------------------------------------------
 # Chrome

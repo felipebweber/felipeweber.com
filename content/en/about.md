@@ -38,7 +38,6 @@ The stack I reach for when the choice is mine:
 ## Projects
 
 - [felipeweber.com](https://github.com/felipebweber/felipeweber.com) — the source of this site.
-- [dotfiles](https://github.com/felipebweber/dotfiles) — my environment configuration.
 
 ## Contact
 
