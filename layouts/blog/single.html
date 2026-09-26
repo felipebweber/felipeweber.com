@@ -1,6 +1,6 @@
 {{ define "main" }}
   {{- $longFmt := site.Params.dateFormatLong | default ":date_long" -}}
-  {{- $commentsOn := and (ne .Params.comments false) (ne (site.Params.comments.disqus.shortname | default "") "") -}}
+  {{- $commentsOn := and (ne .Params.comments false) (ne site.Params.comments.giscus.repoId "") -}}
   {{- $next := or .NextInSection .PrevInSection -}}
 
   <div class="hx:mx-auto hx:flex hextra-max-page-width">
@@ -42,7 +42,7 @@
           {{- if $commentsOn }}
             <section id="comments" class="aor-comments">
               <h2>{{ T "comments" }}</h2>
-              {{ partial "custom/disqus.html" . }}
+              {{ partial "components/giscus.html" . }}
             </section>
           {{- end }}
         </footer>
