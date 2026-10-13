@@ -28,7 +28,11 @@
         {{- with .PageRef -}}
           {{- if hasPrefix . "/" -}}{{- $link = relLangURL (strings.TrimPrefix "/" .) -}}{{- end -}}
         {{- end -}}
-        <li>{{ template "aor-sidebar-link" (dict "title" (or (T .Identifier) .Name) "link" $link "active" (eq (strings.TrimSuffix "/" $pageURL) (strings.TrimSuffix "/" $link))) }}</li>
+        {{- $normPage := strings.TrimSuffix "/" $pageURL -}}
+        {{- $normLink := strings.TrimSuffix "/" $link -}}
+        {{- $active := or (eq $normPage $normLink) (and (gt (len $normLink) 1) (hasPrefix $normPage (printf "%s/" $normLink))) -}}
+        {{- $active = or $active ($context.IsMenuCurrent "main" .) ($context.HasMenuCurrent "main" .) -}}
+        <li>{{ template "aor-sidebar-link" (dict "title" (or (T .Identifier) .Name) "link" $link "active" $active) }}</li>
       {{- end }}
       {{- with $tagsPage }}
         <li>{{ template "aor-sidebar-link" (dict "title" (T "tagsTitle") "link" .RelPermalink "active" (hasPrefix $pageURL .RelPermalink)) }}</li>

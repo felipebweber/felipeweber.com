@@ -3,34 +3,38 @@ main:
     name: "About"
     pageRef: /about
     weight: 1
+  - identifier: digest
+    name: "Digest iOS + AI"
+    pageRef: /digest
+    weight: 2
   - identifier: archives
     name: "Archives"
     pageRef: /archives
-    weight: 2
+    weight: 3
   - identifier: github
     name: "GitHub"
     url: "https://github.com/felipebweber"
-    weight: 3
+    weight: 4
     params:
       icon: github
   - identifier: search
     name: "Search"
-    weight: 4
+    weight: 5
     params:
       type: search
   - identifier: rss
     name: "RSS"
     url: "/en/index.xml"
-    weight: 5
+    weight: 6
     params:
       icon: rss
   - identifier: lang
     name: "Language"
-    weight: 6
+    weight: 7
     params:
       type: language-switch
   - identifier: theme
     name: "Theme"
-    weight: 7
+    weight: 8
     params:
       type: theme-toggle

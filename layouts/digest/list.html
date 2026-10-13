@@ -1,0 +1,51 @@
+{{ define "main" }}
+  {{- $pages := partial "aor/digest-pages.html" . -}}
+  {{- $groups := slice -}}
+  {{- range $pages.GroupByDate "2006-01" "desc" -}}
+    {{- $bucket := . -}}
+    {{- $first := index $bucket.Pages 0 -}}
+    {{- $groups = $groups | append (dict
+        "key" $bucket.Key
+        "label" (partial "aor/month-label.html" $first.Date)
+        "count" (len $bucket.Pages)
+        "pages" ($bucket.Pages.ByDate.Reverse)
+    ) -}}
+  {{- end -}}
+
+  <div class="hx:mx-auto hx:flex hextra-max-page-width">
+    {{ partial "sidebar.html" (dict "context" .) }}
+    {{ partial "aor/toc-months.html" (dict "groups" $groups) }}
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8">
+      <main id="content" class="content aor-index aor-archives hx:w-full hx:min-w-0 hextra-max-content-width hx:px-6 hx:pt-6 hx:md:px-12">
+        {{ with .Title }}<h1 class="aor-page-title">{{ . }}</h1>{{ end }}
+        {{ with .Content }}<div class="aor-index__intro">{{ . }}</div>{{ end }}
+
+        {{- if $groups }}
+          <div class="aor-index-list" data-index-view="list">
+            {{- range $groups }}
+              <section class="aor-index-month" aria-labelledby="aor-list-{{ .key }}">
+                <div class="aor-index-month__header">
+                  <h2 id="aor-list-{{ .key }}">{{ .label }}</h2>
+                  <span>{{ i18n "postCount" (dict "Count" .count) }}</span>
+                </div>
+                <ul>
+                  {{- range .pages }}
+                    <li>
+                      <code>{{ partial "aor/short-date.html" .Date }}</code> &mdash;
+                      <a href="{{ .RelPermalink }}" title="{{ partial "utils/page-description" . }}">{{ .Title }}</a>
+                      {{- with .Description }}
+                        <span class="aor-index-list__summary">{{ . }}</span>
+                      {{- end }}
+                    </li>
+                  {{- end }}
+                </ul>
+              </section>
+            {{- end }}
+          </div>
+        {{- else }}
+          <p class="aor-empty">{{ T "noPosts" }}</p>
+        {{- end }}
+      </main>
+    </article>
+  </div>
+{{ end }}
