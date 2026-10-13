@@ -34,7 +34,9 @@ notFoundHome: "← Back to home"
 # Menu labels — Hextra looks these up by menu identifier before falling back to
 # the menu name, so defining them silences the missing-translation warnings.
 about: "About"
+digest: "Digest iOS + AI"
 archives: "Archives"
+digestWeekOf: "Week of {{ .Week }}"
 github: "GitHub"
 search: "Search"
 rss: "RSS"

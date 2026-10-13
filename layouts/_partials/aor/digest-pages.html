@@ -1,0 +1,12 @@
+{{- /*
+  Published Digest iOS + AI editions. The series is written in Portuguese, so
+  the English listing reads the same pages from the pt site.
+*/ -}}
+{{- $pages := where site.RegularPages "Section" "digest" -}}
+{{- if ne site.Language.Lang "pt" -}}
+  {{- $ptSites := where (partial "utils/hugo-compat/sites.html" .) "Language.Lang" "pt" -}}
+  {{- with index $ptSites 0 -}}
+    {{- $pages = where .RegularPages "Section" "digest" -}}
+  {{- end -}}
+{{- end -}}
+{{- return $pages.ByDate.Reverse -}}

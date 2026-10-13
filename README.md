@@ -45,15 +45,46 @@ Front matter that matters:
 
 Remove `draft: true` when the post is ready.
 
+## Weekly digest (Digest iOS + AI)
+
+The series is its own section, not part of the blog. Posts are only written in
+Brazilian Portuguese. The English menu entry points at `/en/digest/`, which
+lists the same Portuguese editions.
+
+```bash
+hugo new content/pt/digest/2026-10-16-semana-10-a-16-10-2026.md
+```
+
+That uses `archetypes/digest.md`. Drop the file in `content/pt/digest/` even if
+you skip `hugo new`. One file per week. Do not add an English twin.
+
+| Key | Required | Effect |
+| --- | --- | --- |
+| `title` | yes | `Digest iOS + AI no X — semana de 18 a 25/09/2026` |
+| `date` | yes | last day of the week (`2026-09-25`); drives order |
+| `slug` | yes | URL segment under `/digest/`; keep it stable |
+| `week` | yes | range printed at the top of the post, e.g. `18 a 25/09/2026` |
+| `description` | yes | listing card, search and meta description |
+| `tags` | yes | `digest`, `ios`, `ia` |
+| `translationKey` | yes | `digest-YYYY-MM-DD` using the same end date |
+| `draft` | no | omit it, or set `false`, to publish |
+
+Same-month ranges look like `18 a 25/09/2026`. Ranges that cross a month look
+like `26/09 a 02/10/2026`. Leave out private notes such as angles for `@fbw_`.
+
 ## Structure
 
 ```
 config/_default/     site, language, menu and params configuration
 content/pt|en/       content, one tree per language
+  digest/            weekly Digest iOS + AI (posts live in pt only)
+archetypes/digest.md template for a new weekly edition
 layouts/             overrides on top of the Hextra module
   home.html            home page: featured box + list/grid views
   archives.html        chronological archive
   blog/single.html     article template
+  digest/list.html     Digest iOS + AI index
+  digest/single.html   digest edition template
   taxonomy.html        /tags/ index
   term.html            /tags/{tag}/
   _partials/aor/       small helpers (month grouping, tag chips, month TOC)

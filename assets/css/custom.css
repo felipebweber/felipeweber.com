@@ -572,6 +572,13 @@ html[data-aor-index-view="grid"] .aor-index--switchable .aor-index-grid { displa
   text-underline-offset: 0.15em;
 }
 
+.aor-index-list__summary {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--aor-text-muted);
+  font-size: 0.88rem;
+}
+
 /* -------------------------------------------------------------- tag chips -- */
 
 .aor-post-tags {
@@ -689,6 +696,16 @@ html[data-aor-index-view="grid"] .aor-index--switchable .aor-index-grid { displa
 
 .aor-post__header {
   margin: 0.5rem 0 2rem;
+}
+
+.aor-post__week {
+  margin: 0 0 0.45rem;
+  color: var(--aor-accent-strong);
+  font-family: var(--aor-font-sans);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 
 .aor-post__title {
