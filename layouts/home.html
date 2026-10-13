@@ -9,25 +9,30 @@
     <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8">
       <main id="content" class="content aor-index aor-index--switchable hx:w-full hx:min-w-0 hextra-max-content-width hx:px-6 hx:pt-6 hx:md:px-12">
 
-        {{- with $archives }}
-          <p class="aor-index__banner">
-            {{ T "olderPostsPrompt" }} <a href="{{ .RelPermalink }}">{{ T "olderPostsLink" }}</a>
-          </p>
+        {{- /* The archive prompt and the view switch only make sense once there are posts. */ -}}
+        {{- if $groups }}
+          {{- with $archives }}
+            <p class="aor-index__banner">
+              {{ T "olderPostsPrompt" }} <a href="{{ .RelPermalink }}">{{ T "olderPostsLink" }}</a>
+            </p>
+          {{- end }}
         {{- end }}
 
         {{- with .Content }}<div class="aor-index__intro">{{ . }}</div>{{ end }}
 
         {{- /* List / Grid switch. Hidden until aor.js marks the page as enhanced. */ -}}
-        <div class="aor-index-view-toggle" role="group" aria-label="{{ T "viewToggleLabel" }}">
-          <button type="button" data-aor-view="list" aria-pressed="true">
-            {{- partial "utils/icon.html" (dict "name" "view-list" "attributes" `height=16 width=16`) -}}
-            <span>{{ T "viewList" }}</span>
-          </button>
-          <button type="button" data-aor-view="grid" aria-pressed="false">
-            {{- partial "utils/icon.html" (dict "name" "view-grid" "attributes" `height=16 width=16`) -}}
-            <span>{{ T "viewGrid" }}</span>
-          </button>
-        </div>
+        {{- if $groups }}
+          <div class="aor-index-view-toggle" role="group" aria-label="{{ T "viewToggleLabel" }}">
+            <button type="button" data-aor-view="list" aria-pressed="true">
+              {{- partial "utils/icon.html" (dict "name" "view-list" "attributes" `height=16 width=16`) -}}
+              <span>{{ T "viewList" }}</span>
+            </button>
+            <button type="button" data-aor-view="grid" aria-pressed="false">
+              {{- partial "utils/icon.html" (dict "name" "view-grid" "attributes" `height=16 width=16`) -}}
+              <span>{{ T "viewGrid" }}</span>
+            </button>
+          </div>
+        {{- end }}
 
         {{- /* Featured posts */ -}}
         {{- $featured := first (site.Params.featured.limit | default 5) (where (where site.RegularPages "Section" "blog") "Params.featured" true) -}}
